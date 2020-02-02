@@ -3,11 +3,10 @@ var random = require("./random.js");
 
 
 
-module.exports = class GrassEater extends LiveForm {
+module.exports = class Predator extends LiveForm {
     constructor(x, y) {
         super(x, y);
-        this.energy = 15;
-        this.position = 0;
+        this.energy = 20;
     }
     getNewCoordinates() {
         this.directions = [
@@ -48,7 +47,7 @@ module.exports = class GrassEater extends LiveForm {
         let newCell = random(emptyCells);
 
         if (newCell) {
-            this.energy += 2;
+            this.energy += 3;
             var x = newCell[0];
             var y = newCell[1];
             matrix[y][x] = 3;
@@ -63,7 +62,7 @@ module.exports = class GrassEater extends LiveForm {
                 }
             }
 
-            if (this.energy > 20) {
+            if (this.energy > 29) {
                 this.mul();
             }
 
@@ -83,8 +82,7 @@ module.exports = class GrassEater extends LiveForm {
             var y = newCell[1];
             if (matrix[y][x] = 1) {
                 matrix[y][x] = 3;
-                matrix[this.y][this.x] = this.position;
-                this.position = 1;
+                matrix[this.y][this.x] = 0;
                 for (var i in grassArr) {
                     if (x == grassArr[i].x && y == grassArr[i].y) {
                         grassArr.splice(i, 1);
@@ -97,8 +95,7 @@ module.exports = class GrassEater extends LiveForm {
             }
             else if (matrix[y][x] = 0) {
                 matrix[y][x] = 3;
-                matrix[this.y][this.x] = this.position;
-                this.position = 0;
+                matrix[this.y][this.x] = 0;
 
                 this.x = x;
                 this.y = y;

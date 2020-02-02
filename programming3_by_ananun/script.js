@@ -4,7 +4,7 @@ function setup() {
 
     var socket = io();
 
-    var side = 30;
+    var side = 10;
 
     var matrix = [];
 
@@ -36,6 +36,7 @@ function setup() {
                     fill("yellow");
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 0) {
+                    noStroke();
                     fill('#acacac');
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 3) {

@@ -1,8 +1,7 @@
 var LiveForm = require("./LiveForm");
-var random = require("./random");
+var random = require("./random.js");
 
-
-module.exports = class Grass extends LiveForm {
+module.exports = class PoisonGrass extends LiveForm {
     constructor(x, y) {
         super(x, y);
         this.multiply = 0;
@@ -24,20 +23,26 @@ module.exports = class Grass extends LiveForm {
         return super.chooseCell(character);
     }
     mul() {
+        this.getNewCoordinates();
         this.multiply++;
-        var emptyCells = this.chooseCell(0);
+        var emptyCells = this.chooseCell(1);
         var newCell = random(emptyCells);
         if (newCell && this.multiply > 11) {
             grassHashiv++;
             var x = newCell[0];
             var y = newCell[1];
-            matrix[y][x] = 1;
-            var grass = new Grass(x, y);
-            grassArr.push(grass);
+            matrix[y][x] = 4;
+            var Pgrass = new PoisonGrass(x, y);
+            grassArr.push(Pgrass);
+            for (var i in grassArr) {
+                if (x == grassArr[i].x && y == grassArr[i].y) {
+                    grassArr.splice(i, 1);
+                    break;
+                }
+            }
             this.multyply = 0;
         }
-        if (this.multyply > 11) {
-            this.multiply = 0;
-        }
     }
+
+
 }
