@@ -28,12 +28,11 @@ module.exports = class PoisonGrass extends LiveForm {
         var emptyCells = this.chooseCell(1);
         var newCell = random(emptyCells);
         if (newCell && this.multiply > 11) {
-            grassHashiv++;
             var x = newCell[0];
             var y = newCell[1];
             matrix[y][x] = 4;
             var Pgrass = new PoisonGrass(x, y);
-            grassArr.push(Pgrass);
+            poisonArr.push(Pgrass);
             for (var i in grassArr) {
                 if (x == grassArr[i].x && y == grassArr[i].y) {
                     grassArr.splice(i, 1);

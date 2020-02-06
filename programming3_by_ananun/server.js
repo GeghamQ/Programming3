@@ -27,11 +27,11 @@ blackHashiv = 0;
 
 
 //! Creating MATRIX -- START
-function rMatrix(matrix,n,khot,khotaker,gishatich,tuyn,sev) {
+function rMatrix(matrix, n, khot, khotaker, gishatich, tuyn, sev) {
     for (let i = 0; i < n; i++) {
         matrix[i] = [];
         for (let j = 0; j < n; j++) {
-           matrix[i][j] = 0; 
+            matrix[i][j] = 0;
 
         }
 
@@ -40,34 +40,34 @@ function rMatrix(matrix,n,khot,khotaker,gishatich,tuyn,sev) {
         var x = Math.floor(Math.random() * matrix[0].length);
         var y = Math.floor(Math.random() * matrix.length);
         matrix[y][x] = 1;
-        
+
     }
     for (let k = 0; k < khotaker; k++) {
         var x = Math.floor(Math.random() * matrix[0].length);
         var y = Math.floor(Math.random() * matrix.length);
         matrix[y][x] = 2;
-        
+
     }
     for (let k = 0; k < gishatich; k++) {
         var x = Math.floor(Math.random() * matrix[0].length);
         var y = Math.floor(Math.random() * matrix.length);
         matrix[y][x] = 3;
-        
+
     }
     for (let k = 0; k < tuyn; k++) {
         var x = Math.floor(Math.random() * matrix[0].length);
         var y = Math.floor(Math.random() * matrix.length);
         matrix[y][x] = 4;
-        
+
     }
     for (let k = 0; k < sev; k++) {
         var x = Math.floor(Math.random() * matrix[0].length);
         var y = Math.floor(Math.random() * matrix.length);
         matrix[y][x] = 5;
-        
+
     }
 }
-rMatrix(matrix,50,1000,100,50,10,1);
+rMatrix(matrix, 20, 0, 0, 0, 200, 1);
 //! Creating MATRIX -- END
 
 
@@ -105,12 +105,12 @@ function creatingObjects() {
                 var grass = new PoisonGrass(x, y);
                 poisonArr.push(grass);
                 poisonHashiv++;
-            }else if (matrix[y][x] == 5) {
+            } else if (matrix[y][x] == 5) {
                 var grass = new BlackHole(x, y);
                 blackArr.push(grass);
                 blackHashiv++;
             }
-            
+
         }
     }
 }
@@ -140,7 +140,7 @@ function game() {
     if (blackArr[0] !== undefined) {
         for (var i in blackArr) {
             blackArr[i].eat();
-        } 
+        }
     }
 
     //! Object to send
@@ -159,4 +159,4 @@ function game() {
 
 
 
-setInterval(game, 200)
+setInterval(game, 1000);

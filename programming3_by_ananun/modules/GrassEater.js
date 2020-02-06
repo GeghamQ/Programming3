@@ -57,7 +57,8 @@ module.exports = class GrassEater extends LiveForm {
 
                 for (let i in grassArr) {
                     if (grassArr[i].x == x && grassArr[i].y == y) {
-                        grassArr.splice(i, 1)
+                        grassArr.splice(i, 1);
+                        break;
                     }
                 }
                 this.x = x;
@@ -104,7 +105,8 @@ module.exports = class GrassEater extends LiveForm {
 
         for (let i in grassEaterArr) {
             if (grassEaterArr[i].x == this.x && grassEaterArr[i].y == this.y) {
-                grassEaterArr.splice(i, 1)
+                grassEaterArr.splice(i, 1);
+                break;
             }
         }
     }

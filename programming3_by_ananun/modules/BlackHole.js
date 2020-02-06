@@ -18,6 +18,7 @@ module.exports = class BlackHole extends LiveForm {
         ];
     }
     move() {
+        this.getNewCoordinates();
         var x = Math.floor(random(matrix[0].length));
         var y = Math.floor(random(matrix.length));
 
@@ -85,6 +86,7 @@ module.exports = class BlackHole extends LiveForm {
                 for (var i in poisonArr) {
                     if (x == poisonArr[i].x && y == poisonArr[i].y) {
                         poisonArr.splice(i, 1);
+                        console.log( poisonArr[i].y);
                         break;
                     }
                 }
