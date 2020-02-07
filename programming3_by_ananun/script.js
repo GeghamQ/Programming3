@@ -48,6 +48,9 @@ function setup() {
                 } else if (matrix[i][j] == 5) {
                     fill('black');
                     rect(j * side, i * side, side, side);
+                } else if (matrix[i][j] == 6) {
+                    fill('white');
+                    rect(j * side, i * side, side, side);
                 }
             }
         }

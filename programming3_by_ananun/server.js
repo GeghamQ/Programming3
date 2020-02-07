@@ -5,6 +5,7 @@ var GrassEater = require("./modules/GrassEater.js");
 var Predator = require("./modules/Predator.js");
 var PoisonGrass = require("./modules/PoisonGrass.js");
 var BlackHole = require("./modules/BlackHole.js");
+var WhiteHole = require("./modules/WhiteHole.js");
 let random = require('./modules/random');
 //! Requiring modules  --  END
 
@@ -15,6 +16,7 @@ grassEaterArr = [];
 PredatorArr = [];
 poisonArr = [];
 blackArr = [];
+whiteArr = [];
 matrix = [];
 grassHashiv = 0;
 grassEaterHashiv = 0;
@@ -27,7 +29,7 @@ blackHashiv = 0;
 
 
 //! Creating MATRIX -- START
-function rMatrix(matrix, n, khot, khotaker, gishatich, tuyn, sev) {
+function rMatrix(matrix, n, khot, khotaker, gishatich, tuyn, sev, spitak) {
     for (let i = 0; i < n; i++) {
         matrix[i] = [];
         for (let j = 0; j < n; j++) {
@@ -66,8 +68,14 @@ function rMatrix(matrix, n, khot, khotaker, gishatich, tuyn, sev) {
         matrix[y][x] = 5;
 
     }
+    for (let k = 0; k < spitak; k++) {
+        var x = Math.floor(Math.random() * matrix[0].length);
+        var y = Math.floor(Math.random() * matrix.length);
+        matrix[y][x] = 6;
+
+    }
 }
-rMatrix(matrix, 20, 0, 0, 0, 200, 1);
+rMatrix(matrix, 50, 1, 1, 1, 1, 1, 1);
 //! Creating MATRIX -- END
 
 
@@ -109,6 +117,10 @@ function creatingObjects() {
                 var grass = new BlackHole(x, y);
                 blackArr.push(grass);
                 blackHashiv++;
+            } else if (matrix[y][x] == 6) {
+                var grass = new WhiteHole(x, y);
+                whiteArr.push(grass);
+                
             }
 
         }
@@ -142,6 +154,11 @@ function game() {
             blackArr[i].eat();
         }
     }
+    if (whiteArr[0] !== undefined) {
+        for (var i in whiteArr) {
+            whiteArr[i].mul();
+        }
+    }
 
     //! Object to send
     let sendData = {
@@ -150,7 +167,8 @@ function game() {
         grassEaterCounter: grassEaterHashiv,
         predatorCounter: PredatorHashiv,
         poisonCounter: poisonHashiv,
-        blackCounter: blackHashiv
+        blackCounter: blackHashiv,
+        
     }
 
     //! Send data over the socket to clients who listens "data"
@@ -159,4 +177,4 @@ function game() {
 
 
 
-setInterval(game, 1000);
+setInterval(game, 800);

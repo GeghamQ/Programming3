@@ -13,7 +13,7 @@ module.exports = class LiveForm {
             [this.x + 1, this.y + 1]
         ];
     }
-    chooseCell(t) {5
+    chooseCell(t) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
