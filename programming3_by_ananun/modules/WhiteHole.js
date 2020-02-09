@@ -69,24 +69,43 @@ module.exports = class WhiteHole extends LiveForm {
         this.getNewCoordinates();
 
         var r = random(4);
-        for (let i = 0; i < r; i++) {
-            let emptyCells = this.chooseCell(0);
-            let newCell = random(emptyCells);
+        for (var i = 0; i < r; i++) {
+            var emptyCells = this.chooseCell(0);
+            var newCell = random(emptyCells);
+            var index = random(4);
 
             if (newCell) {
                 let x = newCell[0];
                 let y = newCell[1];
 
-                var objects = [new Grass(x, y), new GrassEater(x, y), new Predator(x, y), new PoisonGrass(x, y),];
-                var arrs = [grassArr, grassEaterArr, PredatorArr, poisonArr,];
+                if (index == 0) {
+                    grassHashiv++;
+                    matrix[y][x] = 1;
 
-                var index = random(3);
-                
-                
-                matrix[y][x] = index += 1;
-                let animal = objects[index];
-                console.log(index + " " + arrs[index]);
-                arrs[index].push(animal);
+                    var grass = new Grass(x, y);
+                    grassArr.push(grass);
+                }
+                else if (index == 1) {
+                    grassEaterHashiv++;
+                    matrix[y][x] = 2;
+
+                    var grassEat = new GrassEater(x, y);
+                    grassEaterArr.push(grassEat);
+                }
+                else if (index == 2) {
+                    PredatorHashiv++;
+                    matrix[y][x] = 3;
+
+                    var pred = new Predator(x, y);
+                    PredatorArr.push(pred);
+                }
+                else if (index == 3) {
+                    poisonHashiv++;
+                    matrix[y][x] = 4;
+
+                    var poison = new PoisonGrass(x, y);
+                    poisonArr.push(poison);
+                }
             }
 
         }

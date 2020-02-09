@@ -36,8 +36,8 @@ module.exports = class Grass extends LiveForm {
             grassArr.push(grass);
             this.multyply = 0;
         }
-        if (this.multyply > 11) {
+        else if (this.multiply > 12) {
             this.multiply = 0;
-        }
+        } 
     }
 }

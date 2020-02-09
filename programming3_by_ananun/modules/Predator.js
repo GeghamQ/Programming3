@@ -33,6 +33,7 @@ module.exports = class Predator extends LiveForm {
         let newCell = random(emptyCells);
 
         if (newCell) {
+            PredatorHashiv++;
             let x = newCell[0];
             let y = newCell[1];
             matrix[y][x] = 2;

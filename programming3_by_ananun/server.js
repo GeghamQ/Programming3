@@ -6,7 +6,6 @@ var Predator = require("./modules/Predator.js");
 var PoisonGrass = require("./modules/PoisonGrass.js");
 var BlackHole = require("./modules/BlackHole.js");
 var WhiteHole = require("./modules/WhiteHole.js");
-let random = require('./modules/random');
 //! Requiring modules  --  END
 
 
@@ -23,6 +22,9 @@ grassEaterHashiv = 0;
 PredatorHashiv = 0;
 poisonHashiv = 0;
 blackHashiv = 0;
+whiteHashiv = 0;
+weather = "summer";
+weatherCount = 0;
 //! Setting global arrays  -- END
 
 
@@ -75,7 +77,7 @@ function rMatrix(matrix, n, khot, khotaker, gishatich, tuyn, sev, spitak) {
 
     }
 }
-rMatrix(matrix, 50, 1, 1, 1, 1, 1, 1);
+rMatrix(matrix, 50, 500, 50, 10, 9, 1, 1);
 //! Creating MATRIX -- END
 
 
@@ -92,7 +94,10 @@ app.get('/', function (req, res) {
 server.listen(3000);
 //! SERVER STUFF END  --  END
 
-
+//Add event
+function click(evt) {
+    console.log(evt.pageX, evt.pageY);
+}
 
 function creatingObjects() {
     for (var y = 0; y < matrix.length; y++) {
@@ -100,26 +105,28 @@ function creatingObjects() {
             if (matrix[y][x] == 2) {
                 var grassEater = new GrassEater(x, y);
                 grassEaterArr.push(grassEater);
+                grassEaterHashiv++;
             } else if (matrix[y][x] == 1) {
                 var grass = new Grass(x, y);
                 grassArr.push(grass);
                 grassHashiv++;
             } else if (matrix[y][x] == 3) {
-                var grass = new Predator(x, y);
-                PredatorArr.push(grass);
+                var pred = new Predator(x, y);
+                PredatorArr.push(pred);
                 PredatorHashiv++;
             }
             else if (matrix[y][x] == 4) {
-                var grass = new PoisonGrass(x, y);
-                poisonArr.push(grass);
+                var poison = new PoisonGrass(x, y);
+                poisonArr.push(poison);
                 poisonHashiv++;
             } else if (matrix[y][x] == 5) {
-                var grass = new BlackHole(x, y);
-                blackArr.push(grass);
+                var black = new BlackHole(x, y);
+                blackArr.push(black);
                 blackHashiv++;
             } else if (matrix[y][x] == 6) {
                 var grass = new WhiteHole(x, y);
                 whiteArr.push(grass);
+                whiteHashiv++;
                 
             }
 
@@ -159,6 +166,24 @@ function game() {
             whiteArr[i].mul();
         }
     }
+    // Weather
+    weatherCount++;
+    if (weatherCount >= 0 && weatherCount <= 15) {
+        weather = "summer"
+    }
+    else if (weatherCount > 15 && weatherCount <= 25) {
+        weather = "autumn"
+    }
+    else if (weatherCount > 25 && weatherCount <= 40) {
+        weather = "winter"
+    }
+    else if (weatherCount > 40 && weatherCount <= 50) {
+        weather = "spring"
+    }
+    else{
+        weatherCount = 0;
+    }
+
 
     //! Object to send
     let sendData = {
@@ -168,8 +193,20 @@ function game() {
         predatorCounter: PredatorHashiv,
         poisonCounter: poisonHashiv,
         blackCounter: blackHashiv,
+        whiteCounter: whiteHashiv,
+
+        grassN: grassArr.length,
+        grassEaterN: grassEaterArr.length,
+        predatorN: PredatorArr.length,
+        poisonN: poisonArr.length,
+        blackN: blackArr.length,
+        whiteN: whiteArr.length,
+
+        weather: weather,
         
     }
+
+   
 
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
